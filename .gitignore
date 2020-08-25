@@ -4,3 +4,4 @@ __pycache__
 *.db
 *.pdf
 *.csv
+data/_statements/

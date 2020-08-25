@@ -1,21 +1,10 @@
 import os
 import argparse
 import sqlite3
-from enum import Enum
+from datetime import datetime
 
+from model import Transaction, AccountType
 import pdf_processor
-
-class AccountType(Enum):
-    VISA = 'visa'
-    CHEQUING = 'chequing'
-    SAVINGS = 'savings'
-    
-class Transaction():
-    def __init__(self, account_type, date, description, amount):
-        self.account_type = account_type
-        self.date = date
-        self.description = description
-        self.amount = amount  # CAD
 
 
 def add_to_db(db_conn, transactions):
@@ -43,9 +32,27 @@ def main():
 
     db_conn = sqlite3.connect(args.database)
 
-    transactions = pdf_processor.get_transactions('data/statements')
+    existing_rows = db_conn.execute(
+        """
+        SELECT account_type,
+               timestamp,
+               description,
+               amount
+        FROM transactions
+        """
+    ).fetchall()
 
-    add_to_db(db_conn, transactions)
+    existing_trans = {Transaction(AccountType(e[0]), 
+                                  datetime.fromtimestamp(e[1]),
+                                  e[2],
+                                  e[3])
+                      for e in existing_rows}
+
+    all_trans = pdf_processor.get_transactions('data/statements')
+
+    to_add = all_trans - existing_trans
+    
+    add_to_db(db_conn, to_add)
 
     db_conn.commit()
     db_conn.close()
