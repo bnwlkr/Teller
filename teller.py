@@ -3,8 +3,8 @@ import argparse
 import sqlite3
 from datetime import datetime
 
-from model import Transaction, AccountType
-import pdf_processor
+from teller.model import Transaction, AccountType
+import teller.pdf_processor
 
 
 def add_to_db(db_conn, transactions):
@@ -48,7 +48,7 @@ def main():
                                   e[3])
                       for e in existing_rows}
 
-    all_trans = pdf_processor.get_transactions('data/statements')
+    all_trans = teller.pdf_processor.get_transactions('data/statements')
 
     to_add = all_trans - existing_trans
     
