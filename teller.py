@@ -26,9 +26,17 @@ def add_to_db(db_conn, transactions):
 def main():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('database')
+    arg_parser.add_argument('-d', dest='directory', required=False)
     args = arg_parser.parse_args()
 
     assert os.path.exists(args.database)
+
+    directory = 'data/statements'
+
+    if args.directory:
+        assert os.path.exists(args.directory)
+        directory = args.directory
+    
 
     db_conn = sqlite3.connect(args.database)
 
@@ -48,7 +56,7 @@ def main():
                                   e[3])
                       for e in existing_rows}
 
-    all_trans = teller.pdf_processor.get_transactions('data/statements')
+    all_trans = teller.pdf_processor.get_transactions(directory)
 
     to_add = all_trans - existing_trans
     
