@@ -13,8 +13,8 @@ The next best thing seemed to be downloading my transaction history in .csv form
 
 I wanted to be able to run queries on all transactions since I set up the account (how much money have I spent on sushi?) so that was no good.
 
-This tool was my last resort: parse the PDF e-statements that you can also download from RBC online. It works for savings, chequing, and visa
-account e-statements. The chequing/savings statements are the same format and the visa ones are different. I expect the chequing/savings parser to work for everyone,
+This tool was my last resort: parse PDF e-statements. It works for savings, chequing, and visa
+accounts. The chequing/savings statements are the same format and the visa ones are different. I expect the chequing/savings parser to work for everyone,
 but I'm not sure if different visa types will work because the statements might be formatted differently.
 If you want to create a PR to support a different style of account/statement that'd be cool.
 
@@ -22,6 +22,8 @@ If you want to create a PR to support a different style of account/statement tha
  
 The parsers check the transactions they find against the opening/closing balances reported on the e-statements and will fail out if they notice a discrepancy,
 so the data is *probably* good if nothing fails when you run the tool.
+
+An idea for an extension of this project would be to automate downloading/importing the .csv reports from RBC online every X days. Parsing transaction data from the .csvs would be much more robust and might as well replace pdf parsing once you have your historical data.
 
 ### How to use
 
@@ -68,6 +70,8 @@ statements
     ...
 ```
 
+The tool uses tha names of the files to ascertain some date info so pls don't change them.
+
 - Run it!
 
 ```
@@ -76,7 +80,7 @@ statements
 
 If you put the statements somewhere else, specify the path to their parent directory with the `-d` option. 
 
-After a while, `teller.db`, a [sqlite3](https://www.sqlite.org/index.html) database file, will contain all the transaction data.
+After a while, `teller.db`, a [sqlite3](https://www.sqlite.org/index.html) database file, will contain all the transaction data. You can just leave the data there, and later add new statements and rerun with the same .db file - the tool will manage uniqueness of transactions in the database (duplicate files are fine). I recommend rerunning later with only new statements to save time - the tool only inserts to the .db file.
 
 You can use the sqlite3 CLI to run queries, but I recommend using [DB Browser for SQLite](https://sqlitebrowser.org).
 
