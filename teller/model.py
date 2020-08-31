@@ -27,9 +27,9 @@ class Transaction():
                self.amount == other.amount
 
     def __repr__(self):
-        return (f"({self.account_type.value}, "
+        return (f"({self.amount}, "
                 f"{self.date}, "
-                f"{self.description}, "
-                f"{self.amount})")
+                f"{self.account_type.value}, "
+                f"{self.description})")
 
 

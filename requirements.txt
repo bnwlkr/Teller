@@ -1,0 +1,2 @@
+pdfplumber==0.5.23
+tabula-py==2.1.1
