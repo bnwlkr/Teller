@@ -5,7 +5,7 @@
 I thought it would be cool to be able to run SQL queries on my banking data. [RBC supposedly has an API](https://developer.rbc.com/home), 
 but I tried signing up months ago and never got an account:
 
-![pEnDing](img/pEnDing.png)
+![pEnDing](img/pending.png)
 
 The next best thing seemed to be downloading my transaction history in .csv format from RBC online banking, but the data only goes back a couple months.
 
