@@ -97,7 +97,7 @@ P.S. If you know a way to get all RBC transaction data in a computer-readable fo
 
 - How much interest have I earned in my savings account?
 ```
-SELECT sum(amount) FROM transactions WHERE account_type='visa' AND description LIKE '%interest%'
+SELECT sum(amount) FROM transactions WHERE account_type='savings' AND description LIKE '%interest%'
 ```
 - What's the biggest purchase I've ever made on my credit card?
 ```
