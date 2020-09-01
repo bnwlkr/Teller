@@ -87,9 +87,26 @@ You can use the sqlite3 CLI to run queries, but I recommend using [DB Browser fo
 Now you can have fun running queries and feeling bad about your spending habits. For example:
 
 ```
-SELECT sum(amount) FROM transactions WHERE description like '%Dunbar Sushi%'
+SELECT sum(amount) FROM transactions WHERE description LIKE '%Dunbar Sushi%'
 ```
 
 P.S. If you know a way to get all RBC transaction data in a computer-readable format instead of this nonsense, just don't tell me.
 
+### Example Queries
+
+- How much interest have I earned in my savings account?
+```
+SELECT sum(amount) FROM transactions WHERE account_type='visa' AND description LIKE '%interest%'
+```
+- What's the biggest purchase I've ever made on my credit card?
+```
+SELECT datetime(timestamp, 'unixepoch'), MIN(amount), description FROM transactions WHERE account_type='visa'
+```
+
+### Planned
+- Add more examples
+- Change from storing unix timestamps to datetime strings for ease of use
+  - For now you can see the date of a transaction in a more readable format by including `datetime(timestamp, 'unixepoch')` as a column in your query.
+- Detect account type from statements instead of relying on directory structure
+- Automations
 
