@@ -70,7 +70,7 @@ statements
     ...
 ```
 
-The tool uses tha names of the files to ascertain some date info so pls don't change them.
+The tool uses the names of the files to ascertain some date info so pls don't change them.
 
 - Run it!
 
@@ -80,7 +80,7 @@ The tool uses tha names of the files to ascertain some date info so pls don't ch
 
 If you put the statements somewhere else, specify the path to their parent directory with the `-d` option. 
 
-After a while, `teller.db`, a [sqlite3](https://www.sqlite.org/index.html) database file, will contain all the transaction data. You can just leave the data there, and later add new statements and rerun with the same .db file - the tool will manage uniqueness of transactions in the database (duplicate files are fine). I recommend rerunning later with only new statements to save time - the tool only inserts to the .db file.
+After a while, `teller.db`, a [sqlite3](https://www.sqlite.org/index.html) database file, will contain all the transaction data. You can just leave the data there, and later add new statements and rerun with the same .db file - the tool will manage uniqueness of transactions in the database (duplicate files are fine). I recommend rerunning later with only new statements to save time.
 
 You can use the sqlite3 CLI to run queries, but I recommend using [DB Browser for SQLite](https://sqlitebrowser.org).
 
