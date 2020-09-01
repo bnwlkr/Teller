@@ -45,6 +45,7 @@ source venv/bin/activate
 ```
 (venv) pip install -r requirements.txt
 ```
+A Java runtime is required to run `tabula-py`, which you can download it [here](https://www.java.com/en/download/manual.jsp).
 
 - Download all your e-statements (v boring)
 
