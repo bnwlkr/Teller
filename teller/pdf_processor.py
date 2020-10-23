@@ -153,19 +153,19 @@ def _validate(opening_bal, closing_bal, transactions):
 
 def _get_opening_bal(pdf_text, account_type):
     if account_type == AccountType.VISA:
-        regex = r'PREVIOUS STATEMENT BALANCE \$(?P<balance>[\d,]+\.\d{2})'
+        regex = r'PREVIOUS STATEMENT BALANCE (?P<balance>-?\$[\d,]+\.\d{2})'
     else:
-        regex = r'Your opening balance.+\$(?P<balance>[\d,]+\.\d{2})'
+        regex = r'Your opening balance.+(?P<balance>-?\$[\d,]+\.\d{2})'
     match = re.search(regex, pdf_text)
-    balance = match.groupdict()['balance'].replace(',', '')
+    balance = match.groupdict()['balance'].replace(',', '').replace('$', '')
     return float(balance)
 
 
 def _get_closing_bal(pdf_text, account_type):
     if account_type == AccountType.VISA:
-        regex = r'NEW BALANCE \$(?P<balance>[\d,]+\.\d{2})'
+        regex = r'(?:NEW|CREDIT) BALANCE (?P<balance>-?\$[\d,]+\.\d{2})'
     else:
-        regex = r'Your closing balance.+\$(?P<balance>[\d,]+\.\d{2})'
+        regex = r'Your closing balance.+(?P<balance>-?\$[\d,]+\.\d{2})'
     match = re.search(regex, pdf_text)
-    balance = match.groupdict()['balance'].replace(',', '')
+    balance = match.groupdict()['balance'].replace(',', '').replace('$', '')
     return float(balance)
